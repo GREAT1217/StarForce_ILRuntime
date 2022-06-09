@@ -1,0 +1,91 @@
+﻿using UnityEngine;
+using UnityGameFramework.Runtime;
+
+namespace Game.Hotfix
+{
+    public class MenuForm : HotfixForm
+    {
+        private GameObject m_QuitButton = null;
+
+        private ProcedureMenu m_ProcedureMenu = null;
+
+        public void OnStartButtonClick()
+        {
+            m_ProcedureMenu.StartGame();
+        }
+
+        public void OnSettingButtonClick()
+        {
+            GameEntry.UI.OpenHotfixUIForm(UIFormId.SettingForm);
+        }
+
+        public void OnAboutButtonClick()
+        {
+            GameEntry.UI.OpenHotfixUIForm(UIFormId.AboutForm);
+        }
+
+        public void OnQuitButtonClick()
+        {
+            GameEntry.UI.OpenHotfixDialog(new DialogParams()
+            {
+                Mode = 2,
+                Title = GameEntry.Localization.GetString("AskQuitGame.Title"),
+                Message = GameEntry.Localization.GetString("AskQuitGame.Message"),
+                OnClickConfirm = delegate(object userData) { UnityGameFramework.Runtime.GameEntry.Shutdown(ShutdownType.Quit); },
+            });
+        }
+
+#if UNITY_2017_3_OR_NEWER
+        protected override void OnInit(object userData)
+#else
+        protected internal override void OnInit(object userData)
+#endif
+        {
+            base.OnInit(userData);
+
+            ReferenceCollector collector = ILForm.ReferenceCollector;
+            m_QuitButton = collector.GetGO("bt_Quit");
+            (m_QuitButton.GetComponent(typeof(CommonButton)) as CommonButton).OnClick.AddListener(OnQuitButtonClick);
+            m_QuitButton.SetActive(Application.platform != RuntimePlatform.IPhonePlayer);
+            (collector.Get("bt_About", typeof(CommonButton)) as CommonButton).OnClick.AddListener(OnAboutButtonClick);
+            (collector.Get("bt_Setting", typeof(CommonButton)) as CommonButton).OnClick.AddListener(OnSettingButtonClick);
+            (collector.Get("bt_Start", typeof(CommonButton)) as CommonButton).OnClick.AddListener(OnStartButtonClick);
+        }
+
+#if UNITY_2017_3_OR_NEWER
+        protected override void OnOpen(object userData)
+#else
+        protected internal override void OnOpen(object userData)
+#endif
+        {
+            base.OnOpen(userData);
+            
+            ILFormUserData ilFormUserData = (ILFormUserData)userData;
+            if (ilFormUserData == null)
+            {
+                Log.Error("UserUIData = null");
+                return;
+            }
+
+            m_ProcedureMenu = (ProcedureMenu)ilFormUserData.UserData;
+            if (m_ProcedureMenu == null)
+            {
+                Log.Warning("ProcedureMenu is invalid when open MenuForm.");
+                return;
+            }
+
+            m_QuitButton.SetActive(Application.platform != RuntimePlatform.IPhonePlayer);
+        }
+
+#if UNITY_2017_3_OR_NEWER
+        protected override void OnClose(bool isShutdown, object userData)
+#else
+        protected internal override void OnClose(bool isShutdown, object userData)
+#endif
+        {
+            m_ProcedureMenu = null;
+
+            base.OnClose(isShutdown, userData);
+        }
+    }
+}
