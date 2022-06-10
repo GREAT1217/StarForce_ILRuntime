@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
-namespace Game
+namespace Game.Hotfix
 {
     /// <summary>
     /// 游戏模式。
@@ -16,5 +16,6 @@ namespace Game
         /// 生存模式。
         /// </summary>
         Survival,
+        Boss,
     }
 }

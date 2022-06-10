@@ -5,8 +5,6 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
-using GameFramework.DataTable;
-using GameFramework.UI;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;

@@ -7,9 +7,6 @@
 
 using GameFramework.DataTable;
 using GameFramework.UI;
-using System.Collections;
-using UnityEngine;
-using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 
 namespace Game.Hotfix
@@ -126,10 +123,10 @@ namespace Game.Hotfix
 
         public static int? OpenHotfixUIForm(this UIComponent uiComponent, UIFormId uiFormId, object userData = null)
         {
-            ILFormUserData ilFormUserData = new ILFormUserData(uiFormId.ToString(), userData);
-            return uiComponent.OpenUIForm(uiFormId, ilFormUserData);
+            ILUserData data = new ILUserData(uiFormId.ToString(), userData);
+            return uiComponent.OpenUIForm(uiFormId, data);
         }
-        
+
         public static void OpenHotfixDialog(this UIComponent uiComponent, DialogParams dialogParams)
         {
             uiComponent.OpenHotfixUIForm(UIFormId.DialogForm, dialogParams);

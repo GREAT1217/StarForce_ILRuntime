@@ -10,50 +10,28 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 
-namespace Game.Hotfix
+namespace Game.Runtime
 {
-    public class HPBarItem
+    public class HPBarItem : MonoBehaviour
     {
-        public ReferenceCollector ReferenceCollector { get; private set; }
-        
         private const float AnimationSeconds = 0.3f;
         private const float KeepSeconds = 0.4f;
         private const float FadeOutSeconds = 0.3f;
 
-        private Slider m_HPBar;
-        private Canvas m_ParentCanvas;
-        private RectTransform m_CachedTransform;
-        private CanvasGroup m_CachedCanvasGroup;
-        private Entity m_Owner;
-        private int m_OwnerId;
+        [SerializeField]
+        private Slider m_HPBar = null;
+
+        private Canvas m_ParentCanvas = null;
+        private RectTransform m_CachedTransform = null;
+        private CanvasGroup m_CachedCanvasGroup = null;
+        private Entity m_Owner = null;
+        private int m_OwnerId = 0;
 
         public Entity Owner
         {
             get
             {
                 return m_Owner;
-            }
-        }
-
-        public HPBarItem(ReferenceCollector referenceCollector)
-        {
-            ReferenceCollector = referenceCollector;
-            ReferenceCollector.ComponentView.Component = this;
-
-            m_HPBar = ReferenceCollector.Get("HPBar", typeof(Slider)) as Slider;
-            
-            //获取组件
-            m_CachedTransform = ReferenceCollector.CachedTransform as RectTransform;
-            if (m_CachedTransform == null)
-            {
-                Log.Error("RectTransform is invalid.");
-                return;
-            }
-	
-            m_CachedCanvasGroup = ReferenceCollector.GetComponent(typeof(CanvasGroup)) as CanvasGroup;
-            if (m_CachedCanvasGroup == null)
-            {
-                Log.Error("CanvasGroup is invalid.");
             }
         }
 
@@ -67,8 +45,8 @@ namespace Game.Hotfix
 
             m_ParentCanvas = parentCanvas;
 
-            ReferenceCollector.gameObject.SetActive(true);
-            ReferenceCollector.StopAllCoroutines();
+            gameObject.SetActive(true);
+            StopAllCoroutines();
 
             m_CachedCanvasGroup.alpha = 1f;
             if (m_Owner != owner || m_OwnerId != owner.Id)
@@ -80,7 +58,7 @@ namespace Game.Hotfix
 
             Refresh();
 
-            ReferenceCollector.StartCoroutine(HPBarCo(toHPRatio, AnimationSeconds, KeepSeconds, FadeOutSeconds));
+            StartCoroutine(HPBarCo(toHPRatio, AnimationSeconds, KeepSeconds, FadeOutSeconds));
         }
 
         public bool Refresh()
@@ -108,11 +86,28 @@ namespace Game.Hotfix
 
         public void Reset()
         {
-            ReferenceCollector.StopAllCoroutines();
+            StopAllCoroutines();
             m_CachedCanvasGroup.alpha = 1f;
             m_HPBar.value = 1f;
             m_Owner = null;
-            ReferenceCollector.gameObject.SetActive(false);
+            gameObject.SetActive(false);
+        }
+
+        private void Awake()
+        {
+            m_CachedTransform = GetComponent<RectTransform>();
+            if (m_CachedTransform == null)
+            {
+                Log.Error("RectTransform is invalid.");
+                return;
+            }
+
+            m_CachedCanvasGroup = GetComponent<CanvasGroup>();
+            if (m_CachedCanvasGroup == null)
+            {
+                Log.Error("CanvasGroup is invalid.");
+                return;
+            }
         }
 
         private IEnumerator HPBarCo(float value, float animationDuration, float keepDuration, float fadeOutDuration)

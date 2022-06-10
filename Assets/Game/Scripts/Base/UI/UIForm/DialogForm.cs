@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 
-namespace Game.Hotfix
+namespace Game
 {
-    public class DialogForm : HotfixForm
+    public class DialogForm : UGuiForm
     {
         private Text m_TitleText = null;
         private Text m_MessageText = null;
@@ -73,39 +73,6 @@ namespace Game.Hotfix
             {
                 m_OnClickOther(m_UserData);
             }
-        }
-
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnInit(object userData)
-#else
-        protected internal override void OnInit(object userData)
-#endif
-        {
-            base.OnInit(userData);
-            
-            ReferenceCollector collector = ILForm.ReferenceCollector;
-            m_TitleText = collector.Get("t_Title", typeof(Text)) as Text;
-            m_MessageText = collector.Get("t_Message", typeof(Text)) as Text;
-            
-            m_ModeObjects = new GameObject[3];
-            m_ConfirmTexts = new Text[3];
-            for (int i = 0; i < 3; i++)
-            {
-                m_ModeObjects[i] = collector.GetGO(Utility.Text.Format("ModeObject{0}", i + 1));
-                m_ConfirmTexts[i] = collector.Get(Utility.Text.Format("t_Confirm{0}", i + 1), typeof(Text)) as Text;
-                (collector.Get(Utility.Text.Format("bt_Confirm{0}", i + 1), typeof(CommonButton)) as CommonButton).OnClick.AddListener(OnConfirmButtonClick);
-            }
-            
-            m_CancelTexts = new Text[2];
-            for (int i = 0; i < 2; i++)
-            {
-                m_CancelTexts[i] = collector.Get(Utility.Text.Format("t_Cancel{0}", i + 1), typeof(Text)) as Text;
-                (collector.Get(Utility.Text.Format("bt_Cancel{0}", i + 1), typeof(CommonButton)) as CommonButton).OnClick.AddListener(OnCancelButtonClick);
-            }
-
-            m_OtherTexts = new Text[1];
-            m_OtherTexts[0] = collector.Get("t_Other", typeof(Text)) as Text;
-            (collector.Get("bt_Other", typeof(CommonButton)) as CommonButton).OnClick.AddListener(OnOtherButtonClick);
         }
 
 #if UNITY_2017_3_OR_NEWER

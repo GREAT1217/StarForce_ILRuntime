@@ -6,7 +6,7 @@ namespace Game.Hotfix
     public class ProcedureMenu : ProcedureBase
     {
         private bool m_StartGame = false;
-        private MenuForm m_MenuForm = null;
+        private ILForm m_MenuForm = null;
 
         public void StartGame()
         {
@@ -51,13 +51,13 @@ namespace Game.Hotfix
         private void OnOpenUIFormSuccess(object sender, GameEventArgs e)
         {
             OpenUIFormSuccessEventArgs ne = (OpenUIFormSuccessEventArgs)e;
-            ILFormUserData data = ne.UserData as ILFormUserData;
-            if (data == null || data.UserData != this)
+            ILUserData userData = ne.UserData as ILUserData;
+            if (userData == null || userData.UserData != this)
             {
                 return;
             }
 
-            m_MenuForm = data.ILForm.HotfixForm as MenuForm;
+            m_MenuForm = userData.ILLogic as ILForm;
         }
     }
 }

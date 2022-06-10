@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Game.Runtime;
+using UnityEngine;
 using UnityGameFramework.Runtime;
 
 namespace Game
@@ -198,6 +199,15 @@ namespace Game
         }
 
         /// <summary>
+        /// 构建数据组件。
+        /// </summary>
+        public static HPBarComponent HPBar
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// ILRuntime组件。
         /// </summary>
         public static ILRuntimeComponent ILRuntime
@@ -229,6 +239,7 @@ namespace Game
             UI = UnityGameFramework.Runtime.GameEntry.GetComponent<UIComponent>();
             WebRequest = UnityGameFramework.Runtime.GameEntry.GetComponent<WebRequestComponent>();
             BuiltinData = UnityGameFramework.Runtime.GameEntry.GetComponent<BuiltinDataComponent>();
+            HPBar = UnityGameFramework.Runtime.GameEntry.GetComponent<HPBarComponent>();
             ILRuntime = UnityGameFramework.Runtime.GameEntry.GetComponent<ILRuntimeComponent>();
         }
     }

@@ -1,8 +1,4 @@
-﻿using GameFramework;
-using GameFramework.Fsm;
-using GameFramework.Resource;
-using UnityEngine;
-using UnityGameFramework.Runtime;
+﻿using UnityEngine;
 
 namespace Game.Hotfix
 {
@@ -20,17 +16,17 @@ namespace Game.Hotfix
             private set;
         }
 
-        public static HPBarManager HPBar
-        {
-            get;
-            private set;
-        }
+        // public static HPBarManager HPBar
+        // {
+        //     get;
+        //     private set;
+        // }
 
-        public static Transform m_HotfixNode
-        {
-            get;
-            private set;
-        }
+        // public static Transform m_HotfixNode
+        // {
+        //     get;
+        //     private set;
+        // }
 
         public static void Start()
         {
@@ -60,20 +56,21 @@ namespace Game.Hotfix
             Procedure.StartProcedure<ProcedurePreload>();
 
             // 初始化自定义组件。
-            m_HotfixNode = new GameObject("Hotfix").transform;
-            HPBar = new HPBarManager();
+            // m_HotfixNode = new GameObject("Hotfix").transform;
+            // HPBar = new HPBarManager();
         }
 
         public static void Update(float elapseSeconds, float realElapseSeconds)
         {
             Fsm.Update(elapseSeconds, realElapseSeconds);
             Procedure.Update(elapseSeconds, realElapseSeconds);
+            // HPBar.Update();
         }
 
         public static void Shutdown()
         {
-            Fsm.Shutdown();
-            Procedure.Shutdown();
+            // Fsm.Shutdown();
+            // Procedure.Shutdown();
         }
     }
 }

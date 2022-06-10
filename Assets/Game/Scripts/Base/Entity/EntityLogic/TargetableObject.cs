@@ -5,6 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using System;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
@@ -35,7 +36,7 @@ namespace Game
             float toHPRatio = m_TargetableObjectData.HPRatio;
             if (fromHPRatio > toHPRatio)
             {
-                // todo GameHotfixEntry.HPBar.ShowHPBar(this, fromHPRatio, toHPRatio);
+                GameEntry.HPBar.ShowHPBar(this, fromHPRatio, toHPRatio);
             }
 
             if (m_TargetableObjectData.HP <= 0)
@@ -75,7 +76,7 @@ namespace Game
             GameEntry.Entity.HideEntity(this);
         }
 
-        private void OnTriggerEnter(Collider other)
+        protected virtual void OnTriggerEnter(Collider other)
         {
             Entity entity = other.gameObject.GetComponent<Entity>();
             if (entity == null)
@@ -90,6 +91,10 @@ namespace Game
             }
 
             AIUtility.PerformCollision(this, entity);
+        }
+
+        protected virtual void OnTriggerExit(Collider other)
+        {
         }
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 22245532}
   - component: {fileID: 22325564}
   - component: {fileID: 22565068}
-  - component: {fileID: 8796674587205340306}
+  - component: {fileID: -4600869637070561095}
   m_Layer: 5
   m_Name: HPBarItem
   m_TagString: Untagged
@@ -81,7 +81,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &8796674587205340306
+--- !u!114 &-4600869637070561095
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,12 +90,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 107322}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99725d9b7865890409fd0d567928638e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9bcc0608685184647b097f4838a8e9f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ReferenceObjects:
-  - key: HPBar
-    obj: {fileID: 124856}
+  m_HPBar: {fileID: 11458132}
 --- !u!1 &124856
 GameObject:
   m_ObjectHideFlags: 0

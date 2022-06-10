@@ -7,56 +7,44 @@
 
 using GameFramework.ObjectPool;
 using System.Collections.Generic;
-using GameFramework.Resource;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 
-namespace Game.Hotfix
+namespace Game.Runtime
 {
-    public class HPBarManager
+    public class HPBarComponent : GameFrameworkComponent
     {
-        private GameObject m_HPBarItemTemplate = null;
+        [SerializeField]
+        private HPBarItem m_HPBarItemTemplate = null;
+
+        [SerializeField]
         private Transform m_HPBarInstanceRoot = null;
+
+        [SerializeField]
         private int m_InstancePoolCapacity = 16;
 
         private IObjectPool<HPBarItemObject> m_HPBarItemObjectPool = null;
         private List<HPBarItem> m_ActiveHPBarItems = null;
         private Canvas m_CachedCanvas = null;
 
-        public HPBarManager()
+        private void Start()
         {
-            GameObject InstaceObj = new GameObject("HP Bar Instance");
-            InstaceObj.transform.SetParent(GameHotfixEntry.m_HotfixNode);
-            m_HPBarInstanceRoot = InstaceObj.transform;
+            if (m_HPBarInstanceRoot == null)
+            {
+                Log.Error("You must set HP bar instance root first.");
+                return;
+            }
 
-            m_CachedCanvas = InstaceObj.AddComponent<Canvas>();
-            m_CachedCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
-
-            CanvasScaler scaler = InstaceObj.AddComponent<CanvasScaler>();
-            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = new Vector2(1080, 1920);
-            scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
-            scaler.matchWidthOrHeight = 0;
-
+            m_CachedCanvas = m_HPBarInstanceRoot.GetComponent<Canvas>();
             m_HPBarItemObjectPool = GameEntry.ObjectPool.CreateSingleSpawnObjectPool<HPBarItemObject>("HPBarItem", m_InstancePoolCapacity);
             m_ActiveHPBarItems = new List<HPBarItem>();
-
-            GameEntry.Resource.LoadAsset(AssetUtility.GetUIItemAsset("HPBarItem"), Constant.AssetPriority.UIItemAsset, new LoadAssetCallbacks(
-                    (assetName, asset, duration, userData) =>
-                    {
-                        Log.Info("Load HPBarItem OK.");
-                        m_HPBarItemTemplate = asset as GameObject;
-                    },
-                    (assetName, status, errorMessage, userData) =>
-                    {
-                        Log.Error("Can not load HPBarItem from '{0}' with error message '{1}'.", assetName, errorMessage);
-                    }
-                )
-            );
         }
 
-        public void Update()
+        private void OnDestroy()
+        {
+        }
+
+        private void Update()
         {
             for (int i = m_ActiveHPBarItems.Count - 1; i >= 0; i--)
             {
@@ -123,11 +111,9 @@ namespace Game.Hotfix
             }
             else
             {
-                ReferenceCollector item = Object.Instantiate(m_HPBarItemTemplate).GetComponent<ReferenceCollector>();
-                hpBarItem = new HPBarItem(item);
-
-                Transform transform = item.transform;
-                transform.SetParent(m_HPBarInstanceRoot, false);
+                hpBarItem = Instantiate(m_HPBarItemTemplate);
+                Transform transform = hpBarItem.GetComponent<Transform>();
+                transform.SetParent(m_HPBarInstanceRoot);
                 transform.localScale = Vector3.one;
                 m_HPBarItemObjectPool.Register(HPBarItemObject.Create(hpBarItem), true);
             }

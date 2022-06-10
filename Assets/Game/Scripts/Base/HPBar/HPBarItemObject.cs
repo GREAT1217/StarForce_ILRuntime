@@ -9,13 +9,13 @@ using GameFramework;
 using GameFramework.ObjectPool;
 using UnityEngine;
 
-namespace Game.Hotfix
+namespace Game.Runtime
 {
     public class HPBarItemObject : ObjectBase
     {
         public static HPBarItemObject Create(object target)
         {
-            HPBarItemObject hpBarItemObject = GameFramework.ReferencePool.Acquire<HPBarItemObject>();
+            HPBarItemObject hpBarItemObject = ReferencePool.Acquire<HPBarItemObject>();
             hpBarItemObject.Initialize(target);
             return hpBarItemObject;
         }
@@ -28,7 +28,7 @@ namespace Game.Hotfix
                 return;
             }
 
-            Object.Destroy(hpBarItem.ReferenceCollector.gameObject);
+            Object.Destroy(hpBarItem.gameObject);
         }
     }
 }

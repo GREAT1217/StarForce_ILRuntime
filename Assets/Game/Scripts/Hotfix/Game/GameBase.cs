@@ -9,7 +9,7 @@ using GameFramework.Event;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-namespace Game
+namespace Game.Hotfix
 {
     public abstract class GameBase
     {
@@ -30,7 +30,7 @@ namespace Game
             protected set;
         }
 
-        private MyAircraft m_MyAircraft = null;
+        protected MyAircraft m_MyAircraft = null;
 
         public virtual void Initialize()
         {

@@ -60,14 +60,14 @@ namespace Game.Hotfix
         {
             base.OnOpen(userData);
             
-            ILFormUserData ilFormUserData = (ILFormUserData)userData;
-            if (ilFormUserData == null)
+            ILUserData data = userData as ILUserData;
+            if (data == null)
             {
-                Log.Error("UserUIData = null");
+                Log.Error("HotfixForm open failed.");
                 return;
             }
 
-            m_ProcedureMenu = (ProcedureMenu)ilFormUserData.UserData;
+            m_ProcedureMenu = (ProcedureMenu)data.UserData;
             if (m_ProcedureMenu == null)
             {
                 Log.Warning("ProcedureMenu is invalid when open MenuForm.");

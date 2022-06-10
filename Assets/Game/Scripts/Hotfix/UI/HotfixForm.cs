@@ -1,12 +1,11 @@
-﻿using UnityEngine;
-using UnityGameFramework.Runtime;
+﻿using UnityGameFramework.Runtime;
 
 namespace Game.Hotfix
 {
     public abstract class HotfixForm
     {
         /// <summary>
-        /// 非热更层的界面的实例。
+        /// 底层界面逻辑。
         /// </summary>
         protected ILForm ILForm
         {
@@ -30,14 +29,14 @@ namespace Game.Hotfix
         /// <param name="userData">用户自定义数据。</param>
         protected virtual void OnInit(object userData)
         {
-            ILFormUserData ilFormUserData = (ILFormUserData)userData;
-            if (ilFormUserData == null)
+            ILUserData data = userData as ILUserData;
+            if (data == null)
             {
-                Log.Error("HotfixForm Init failed.");
+                Log.Error("ILForm data is invalid.");
                 return;
             }
 
-            ILForm = ilFormUserData.ILForm;
+            ILForm = data.ILLogic as ILForm;
         }
 
         /// <summary>
