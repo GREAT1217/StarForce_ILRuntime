@@ -56,6 +56,11 @@ namespace Game
             }
         }
 
+        public void PlayUISound(int uiSoundId)
+        {
+            GameEntry.Sound.PlayUISound(uiSoundId);
+        }
+
         public static void SetMainFont(Font mainFont)
         {
             if (mainFont == null)
@@ -88,7 +93,7 @@ namespace Game
             transform.sizeDelta = Vector2.zero;
 
             gameObject.GetOrAddComponent<GraphicRaycaster>();
-            
+
             Text[] texts = GetComponentsInChildren<Text>(true);
             for (int i = 0; i < texts.Length; i++)
             {

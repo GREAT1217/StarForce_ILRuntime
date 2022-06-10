@@ -581,7 +581,7 @@ GameObject:
   m_Component:
   - component: {fileID: 22463286}
   - component: {fileID: 22267316}
-  - component: {fileID: 4138997274353811873}
+  - component: {fileID: 11435820}
   m_Layer: 5
   m_Name: Confirm
   m_TagString: Untagged
@@ -618,7 +618,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 123252}
   m_CullTransparentMesh: 0
---- !u!114 &4138997274353811873
+--- !u!114 &11435820
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -632,10 +632,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5087513589429602046}
+        m_MethodName: PlayUISound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10001
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5087513589429602046}
+        m_MethodName: OnConfirmButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnHover:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5087513589429602046}
+        m_MethodName: PlayUISound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10000
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &125418
 GameObject:
   m_ObjectHideFlags: 0
@@ -721,8 +754,7 @@ GameObject:
   - component: {fileID: 22498214}
   - component: {fileID: 22269018}
   - component: {fileID: 22354136}
-  - component: {fileID: 328030771736795727}
-  - component: {fileID: 1504683450512030391}
+  - component: {fileID: 5087513589429602046}
   m_Layer: 5
   m_Name: DialogForm
   m_TagString: Untagged
@@ -739,17 +771,17 @@ RectTransform:
   m_GameObject: {fileID: 128074}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 22448604}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &22269018
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -767,7 +799,7 @@ Canvas:
   m_GameObject: {fileID: 128074}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 1
@@ -779,7 +811,7 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &328030771736795727
+--- !u!114 &5087513589429602046
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -788,56 +820,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 128074}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7f832fa91d84254b5f51cc3f6356bd0, type: 3}
+  m_Script: {fileID: 11500000, guid: 816d39bc2cd4fa441967bbe144e779b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1504683450512030391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 128074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99725d9b7865890409fd0d567928638e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ReferenceObjects:
-  - key: ModeObject1
-    obj: {fileID: 100172}
-  - key: ModeObject2
-    obj: {fileID: 160110}
-  - key: ModeObject3
-    obj: {fileID: 190246}
-  - key: bt_Cancel1
-    obj: {fileID: 136914}
-  - key: bt_Cancel2
-    obj: {fileID: 170828}
-  - key: bt_Confirm1
-    obj: {fileID: 199146}
-  - key: bt_Confirm2
-    obj: {fileID: 160574}
-  - key: bt_Confirm3
-    obj: {fileID: 123252}
-  - key: bt_Other
-    obj: {fileID: 143604}
-  - key: t_Cancel1
-    obj: {fileID: 199804}
-  - key: t_Cancel2
-    obj: {fileID: 170296}
-  - key: t_Confirm1
-    obj: {fileID: 152152}
-  - key: t_Confirm2
-    obj: {fileID: 115676}
-  - key: t_Confirm3
-    obj: {fileID: 105206}
-  - key: t_Message
-    obj: {fileID: 117760}
-  - key: t_Other
-    obj: {fileID: 113462}
-  - key: t_Title
-    obj: {fileID: 180416}
+  m_TitleText: {fileID: 11434978}
+  m_MessageText: {fileID: 11419300}
+  m_ModeObjects:
+  - {fileID: 100172}
+  - {fileID: 160110}
+  - {fileID: 190246}
+  m_ConfirmTexts:
+  - {fileID: 11458286}
+  - {fileID: 11428172}
+  - {fileID: 11466394}
+  m_CancelTexts:
+  - {fileID: 11475382}
+  - {fileID: 11420780}
+  m_OtherTexts:
+  - {fileID: 11468576}
 --- !u!1 &133230
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,7 +922,7 @@ GameObject:
   m_Component:
   - component: {fileID: 22489788}
   - component: {fileID: 22259850}
-  - component: {fileID: 8691196537328054237}
+  - component: {fileID: 11466582}
   m_Layer: 5
   m_Name: Cancel
   m_TagString: Untagged
@@ -959,7 +959,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 136914}
   m_CullTransparentMesh: 0
---- !u!114 &8691196537328054237
+--- !u!114 &11466582
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -973,10 +973,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5087513589429602046}
+        m_MethodName: PlayUISound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10001
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5087513589429602046}
+        m_MethodName: OnCancelButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnHover:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5087513589429602046}
+        m_MethodName: PlayUISound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10000
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &143604
 GameObject:
   m_ObjectHideFlags: 0
@@ -987,7 +1020,7 @@ GameObject:
   m_Component:
   - component: {fileID: 22469922}
   - component: {fileID: 22236630}
-  - component: {fileID: 7486556442563048575}
+  - component: {fileID: 11457524}
   m_Layer: 5
   m_Name: Other
   m_TagString: Untagged
@@ -1024,7 +1057,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 143604}
   m_CullTransparentMesh: 0
---- !u!114 &7486556442563048575
+--- !u!114 &11457524
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1038,10 +1071,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5087513589429602046}
+        m_MethodName: PlayUISound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10001
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5087513589429602046}
+        m_MethodName: OnOtherButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnHover:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5087513589429602046}
+        m_MethodName: PlayUISound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10000
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &151362
 GameObject:
   m_ObjectHideFlags: 0
@@ -1390,7 +1456,7 @@ GameObject:
   m_Component:
   - component: {fileID: 22479018}
   - component: {fileID: 22233544}
-  - component: {fileID: 2254557867947962472}
+  - component: {fileID: 11432982}
   m_Layer: 5
   m_Name: Confirm
   m_TagString: Untagged
@@ -1427,7 +1493,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 160574}
   m_CullTransparentMesh: 0
---- !u!114 &2254557867947962472
+--- !u!114 &11432982
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1441,10 +1507,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5087513589429602046}
+        m_MethodName: PlayUISound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10001
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5087513589429602046}
+        m_MethodName: OnConfirmButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnHover:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5087513589429602046}
+        m_MethodName: PlayUISound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10000
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &170296
 GameObject:
   m_ObjectHideFlags: 0
@@ -1533,7 +1632,7 @@ GameObject:
   m_Component:
   - component: {fileID: 22480084}
   - component: {fileID: 22211492}
-  - component: {fileID: 7641965743571568641}
+  - component: {fileID: 11407892}
   m_Layer: 5
   m_Name: Cancel
   m_TagString: Untagged
@@ -1570,7 +1669,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170828}
   m_CullTransparentMesh: 0
---- !u!114 &7641965743571568641
+--- !u!114 &11407892
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1584,10 +1683,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5087513589429602046}
+        m_MethodName: PlayUISound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10001
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5087513589429602046}
+        m_MethodName: OnCancelButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnHover:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5087513589429602046}
+        m_MethodName: PlayUISound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10000
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &174596
 GameObject:
   m_ObjectHideFlags: 0
@@ -1793,7 +1925,7 @@ GameObject:
   m_Component:
   - component: {fileID: 22464582}
   - component: {fileID: 22210986}
-  - component: {fileID: 7157033776212251550}
+  - component: {fileID: 11490228}
   m_Layer: 5
   m_Name: Confirm
   m_TagString: Untagged
@@ -1830,7 +1962,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 199146}
   m_CullTransparentMesh: 0
---- !u!114 &7157033776212251550
+--- !u!114 &11490228
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1844,10 +1976,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5087513589429602046}
+        m_MethodName: PlayUISound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10001
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5087513589429602046}
+        m_MethodName: OnConfirmButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnHover:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5087513589429602046}
+        m_MethodName: PlayUISound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10000
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &199804
 GameObject:
   m_ObjectHideFlags: 0

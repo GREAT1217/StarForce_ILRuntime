@@ -1,15 +1,25 @@
-﻿using UnityEngine;
+﻿//------------------------------------------------------------
+// Game Framework
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
+//------------------------------------------------------------
+
+using UnityEngine;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 
-namespace Game.Hotfix
+namespace Game
 {
-    public class AboutForm : HotfixForm
+    public class AboutForm : UGuiForm
     {
+        [SerializeField]
         private RectTransform m_Transform = null;
-        private float m_ScrollSpeed = 100f;
-        
-       private float m_InitPosition = 0f;
+
+        [SerializeField]
+        private float m_ScrollSpeed = 1f;
+
+        private float m_InitPosition = 0f;
 
 #if UNITY_2017_3_OR_NEWER
         protected override void OnInit(object userData)
@@ -19,7 +29,7 @@ namespace Game.Hotfix
         {
             base.OnInit(userData);
 
-            CanvasScaler canvasScaler = ILForm.GetComponentInParent<CanvasScaler>();
+            CanvasScaler canvasScaler = GetComponentInParent<CanvasScaler>();
             if (canvasScaler == null)
             {
                 Log.Warning("Can not find CanvasScaler component.");
@@ -27,10 +37,6 @@ namespace Game.Hotfix
             }
 
             m_InitPosition = -0.5f * canvasScaler.referenceResolution.x * Screen.height / Screen.width;
-            
-            ReferenceCollector collector = ILForm.ReferenceCollector;
-            m_Transform = (RectTransform)collector.Get("trans_Content", typeof(RectTransform));
-            (collector.Get("bt_Back", typeof(CommonButton)) as CommonButton).OnClick.AddListener(Close);
         }
 
 #if UNITY_2017_3_OR_NEWER

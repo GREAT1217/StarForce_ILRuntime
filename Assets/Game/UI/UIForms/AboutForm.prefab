@@ -545,7 +545,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 9143889980051954763}
+        m_MethodName: PlayUISound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10001
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 9143889980051954763}
+        m_MethodName: Close
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnHover:
     m_PersistentCalls:
       m_Calls: []
@@ -716,8 +738,7 @@ GameObject:
   - component: {fileID: 22455944}
   - component: {fileID: 22254414}
   - component: {fileID: 22372286}
-  - component: {fileID: 272295143258802033}
-  - component: {fileID: 2958681525607008680}
+  - component: {fileID: 9143889980051954763}
   m_Layer: 5
   m_Name: AboutForm
   m_TagString: Untagged
@@ -775,7 +796,7 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &272295143258802033
+--- !u!114 &9143889980051954763
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -784,23 +805,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 193354}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7f832fa91d84254b5f51cc3f6356bd0, type: 3}
+  m_Script: {fileID: 11500000, guid: 42b1cdcb774776940adf1d724191a8d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2958681525607008680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 193354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99725d9b7865890409fd0d567928638e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ReferenceObjects:
-  - key: bt_Back
-    obj: {fileID: 162438}
-  - key: trans_Content
-    obj: {fileID: 136392}
+  m_Transform: {fileID: 22456236}
+  m_ScrollSpeed: 100

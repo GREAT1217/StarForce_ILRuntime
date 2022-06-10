@@ -36,7 +36,7 @@ namespace Game.Editor
             ScriptCompilationSettings scriptCompilationSettings = new ScriptCompilationSettings();
             scriptCompilationSettings.group = group;
             scriptCompilationSettings.target = buildTarget;
-            scriptCompilationSettings.options = ScriptCompilationOptions.None;
+            scriptCompilationSettings.options = ScriptCompilationOptions.DevelopmentBuild;
 
             IOUtility.CreateDirectoryIfNotExists(path);
             ScriptCompilationResult scriptCompilationResult = PlayerBuildInterface.CompilePlayerScripts(scriptCompilationSettings, path);
@@ -101,6 +101,26 @@ namespace Game.Editor
             }
 
             Debug.Log(Utility.Text.Format("Generate {0} Adapter Succeed.", type.ToString()));
+        }
+        
+        
+        
+        
+        
+           
+        private const string DllPath = "Library/ScriptAssemblies";
+        private const string DllName = "Game.Hotfix.dll";
+        private const string PdbName = "Game.Hotfix.pdb";
+        
+        [MenuItem("Generator/Generate HotfixDll 2", false, 81)]
+        private static void GenerateHotfixDLL2()
+        {
+            IOUtility.CreateDirectoryIfNotExists(HotfixPath);
+        
+            File.Copy(Path.Combine(DllPath, DllName),  AssetUtility.GetHotfixAsset(DllName), true);
+            File.Copy(Path.Combine(DllPath, PdbName), AssetUtility.GetHotfixAsset(PdbName), true);
+            Debug.Log("Hotfix.dll, Hotfix.pdb 复制完成");
+            AssetDatabase.Refresh();
         }
     }
 }

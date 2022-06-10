@@ -1,23 +1,52 @@
-﻿using GameFramework.Localization;
+﻿//------------------------------------------------------------
+// Game Framework
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
+//------------------------------------------------------------
+
+using GameFramework.Localization;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 
-namespace Game.Hotfix
+namespace Game
 {
-    public class SettingForm : HotfixForm
+    public class SettingForm : UGuiForm
     {
+        [SerializeField]
         private Toggle m_MusicMuteToggle = null;
+
+        [SerializeField]
         private Slider m_MusicVolumeSlider = null;
+
+        [SerializeField]
         private Toggle m_SoundMuteToggle = null;
+
+        [SerializeField]
         private Slider m_SoundVolumeSlider = null;
+
+        [SerializeField]
         private Toggle m_UISoundMuteToggle = null;
+
+        [SerializeField]
         private Slider m_UISoundVolumeSlider = null;
+
+        [SerializeField]
         private CanvasGroup m_LanguageTipsCanvasGroup = null;
+
+        [SerializeField]
         private Toggle m_EnglishToggle = null;
+
+        [SerializeField]
         private Toggle m_ChineseSimplifiedToggle = null;
+
+        [SerializeField]
         private Toggle m_ChineseTraditionalToggle = null;
+
+        [SerializeField]
         private Toggle m_KoreanToggle = null;
+
         private Language m_SelectedLanguage = Language.Unspecified;
 
         public void OnMusicMuteChanged(bool isOn)
@@ -105,53 +134,11 @@ namespace Game.Hotfix
                 return;
             }
 
-            GameEntry.Setting.SetString(Game.Constant.Setting.Language, m_SelectedLanguage.ToString());
+            GameEntry.Setting.SetString(Constant.Setting.Language, m_SelectedLanguage.ToString());
             GameEntry.Setting.Save();
 
             GameEntry.Sound.StopMusic();
             UnityGameFramework.Runtime.GameEntry.Shutdown(ShutdownType.Restart);
-        }
-
-        protected override void OnInit(object userData)
-        {
-            base.OnInit(userData);
-
-            ReferenceCollector collector = ILForm.ReferenceCollector;
-
-            // Music控制
-            m_MusicMuteToggle = collector.Get("tog_MusicMute", typeof(Toggle)) as Toggle;
-            m_MusicMuteToggle.onValueChanged.AddListener(OnMusicMuteChanged);
-            m_MusicVolumeSlider = collector.Get("slider_MusicVolume", typeof(Slider)) as Slider;
-            m_MusicVolumeSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
-
-            // Sound控制
-            m_SoundMuteToggle = collector.Get("tog_SoundMute", typeof(Toggle)) as Toggle;
-            m_SoundMuteToggle.onValueChanged.AddListener(OnSoundMuteChanged);
-            m_SoundVolumeSlider = collector.Get("slider_SoundVolume", typeof(Slider)) as Slider;
-            m_SoundVolumeSlider.onValueChanged.AddListener(OnSoundVolumeChanged);
-
-            // UISound控制
-            m_UISoundMuteToggle = collector.Get("tog_UISoundMute", typeof(Toggle)) as Toggle;
-            m_UISoundMuteToggle.onValueChanged.AddListener(OnUISoundMuteChanged);
-            m_UISoundVolumeSlider = collector.Get("slider_UISoundVolume", typeof(Slider)) as Slider;
-            m_UISoundVolumeSlider.onValueChanged.AddListener(OnUISoundVolumeChanged);
-
-            // 提示画布组
-            m_LanguageTipsCanvasGroup = collector.Get("CanvasGroup_LanguageTips", typeof(CanvasGroup)) as CanvasGroup;
-
-            // 本地化按钮
-            m_EnglishToggle = collector.Get("tog_English", typeof(Toggle)) as Toggle;
-            m_EnglishToggle.onValueChanged.AddListener(OnEnglishSelected);
-            m_ChineseSimplifiedToggle = collector.Get("tog_ChineseSimplified", typeof(Toggle)) as Toggle;
-            m_ChineseSimplifiedToggle.onValueChanged.AddListener(OnChineseSimplifiedSelected);
-            m_ChineseTraditionalToggle = collector.Get("tog_ChineseTraditional", typeof(Toggle)) as Toggle;
-            m_ChineseTraditionalToggle.onValueChanged.AddListener(OnChineseTraditionalSelected);
-            m_KoreanToggle = collector.Get("tog_Korean", typeof(Toggle)) as Toggle;
-            m_KoreanToggle.onValueChanged.AddListener(OnKoreanSelected);
-
-            // 按钮
-            (collector.Get("bt_Confirm", typeof(CommonButton)) as CommonButton).OnClick.AddListener(OnSubmitButtonClick);
-            (collector.Get("bt_Cancel", typeof(CommonButton)) as CommonButton).OnClick.AddListener(Close);
         }
 
 #if UNITY_2017_3_OR_NEWER

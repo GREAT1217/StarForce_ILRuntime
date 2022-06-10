@@ -1,4 +1,11 @@
-﻿using GameFramework;
+﻿//------------------------------------------------------------
+// Game Framework
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
+//------------------------------------------------------------
+
+using GameFramework;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
@@ -7,11 +14,22 @@ namespace Game
 {
     public class DialogForm : UGuiForm
     {
+        [SerializeField]
         private Text m_TitleText = null;
+
+        [SerializeField]
         private Text m_MessageText = null;
+
+        [SerializeField]
         private GameObject[] m_ModeObjects = null;
+
+        [SerializeField]
         private Text[] m_ConfirmTexts = null;
+
+        [SerializeField]
         private Text[] m_CancelTexts = null;
+
+        [SerializeField]
         private Text[] m_OtherTexts = null;
 
         private int m_DialogMode = 1;

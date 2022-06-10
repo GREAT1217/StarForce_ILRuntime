@@ -2,10 +2,12 @@
 using GameFramework.Event;
 using GameFramework.Resource;
 using System.Collections.Generic;
+using GameFramework.Fsm;
+using GameFramework.Procedure;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-namespace Game.Hotfix
+namespace Game
 {
     public class ProcedurePreload : ProcedureBase
     {
@@ -26,7 +28,7 @@ namespace Game.Hotfix
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();
 
-        public override void OnEnter(IFsm<IProcedureManager> procedureOwner)
+        protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {
             base.OnEnter(procedureOwner);
 
@@ -42,7 +44,7 @@ namespace Game.Hotfix
             PreloadResources();
         }
 
-        public override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)
+        protected override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)
         {
             GameEntry.Event.Unsubscribe(LoadConfigSuccessEventArgs.EventId, OnLoadConfigSuccess);
             GameEntry.Event.Unsubscribe(LoadConfigFailureEventArgs.EventId, OnLoadConfigFailure);
@@ -54,7 +56,7 @@ namespace Game.Hotfix
             base.OnLeave(procedureOwner, isShutdown);
         }
 
-        public override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
+        protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 
@@ -65,9 +67,11 @@ namespace Game.Hotfix
                     return;
                 }
             }
+            
+            // procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Menu"));
+            // ChangeState<ProcedureChangeScene>(procedureOwner);
 
-            procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Menu"));
-            ChangeState<ProcedureChangeScene>(procedureOwner);
+            ChangeState<ProcedureILRuntime>(procedureOwner);
         }
 
         private void PreloadResources()
