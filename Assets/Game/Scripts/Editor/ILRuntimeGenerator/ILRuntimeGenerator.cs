@@ -47,10 +47,10 @@ namespace Game.Editor
 
             IOUtility.CreateDirectoryIfNotExists(HotfixPath);
             string oriFileName = Utility.Text.Format("{0}/{1}", path, HotfixDllName);
-            string desFileName = Utility.Text.Format("{0}/{1}.bytes", HotfixPath, HotfixDllName);
+            string desFileName = AssetUtility.GetHotfixAsset(HotfixDllName);
             File.Copy(oriFileName, desFileName, true);
             oriFileName = Utility.Text.Format("{0}/{1}", path, HotfixPdbName);
-            desFileName = Utility.Text.Format("{0}/{1}.bytes", HotfixPath, HotfixPdbName);
+            desFileName = AssetUtility.GetHotfixAsset(HotfixPdbName);
             File.Copy(oriFileName, desFileName, true);
 
             Debug.Log("Hotfix dll & pdb build complete.");
@@ -77,7 +77,7 @@ namespace Game.Editor
             IOUtility.CreateDirectoryIfNotExists(CLRBindingPath);
 
             AppDomain appDomain = new AppDomain();
-            string dllFileName = Utility.Text.Format("{0}/{1}", HotfixPath, HotfixDllName);
+            string dllFileName = AssetUtility.GetHotfixAsset(HotfixDllName);
             using (FileStream dllStream = new FileStream(dllFileName, FileMode.Open, FileAccess.Read))
             {
                 appDomain.LoadAssembly(dllStream);
