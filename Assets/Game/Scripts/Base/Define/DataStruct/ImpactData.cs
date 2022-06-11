@@ -1,6 +1,6 @@
 ﻿namespace Game
 {
-    public struct ImpactData
+    public class ImpactData
     {
         private CampType m_Camp;
         private int m_HP;

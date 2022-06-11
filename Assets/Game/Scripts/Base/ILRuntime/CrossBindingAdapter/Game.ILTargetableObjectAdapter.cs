@@ -42,8 +42,8 @@ namespace Game
             CrossBindingMethodInfo<System.Boolean> mInternalSetVisible_9 = new CrossBindingMethodInfo<System.Boolean>("InternalSetVisible");
             CrossBindingMethodInfo<UnityEngine.Collider> mOnTriggerEnter_10 = new CrossBindingMethodInfo<UnityEngine.Collider>("OnTriggerEnter");
             CrossBindingMethodInfo<UnityEngine.Collider> mOnTriggerExit_11 = new CrossBindingMethodInfo<UnityEngine.Collider>("OnTriggerExit");
-            CrossBindingFunctionInfo<Game.ImpactData> mGetImpactData_12 = new CrossBindingFunctionInfo<Game.ImpactData>("GetImpactData");
-            CrossBindingMethodInfo<Game.Entity> mOnDead_13 = new CrossBindingMethodInfo<Game.Entity>("OnDead");
+            CrossBindingMethodInfo<Game.Entity> mOnDead_12 = new CrossBindingMethodInfo<Game.Entity>("OnDead");
+            CrossBindingFunctionInfo<Game.ImpactData> mGetImpactData_13 = new CrossBindingFunctionInfo<Game.ImpactData>("GetImpactData");
 
             bool isInvokingToString;
             ILTypeInstance instance;
@@ -158,17 +158,20 @@ namespace Game
                     mOnTriggerExit_11.Invoke(this.instance, other);
             }
 
-            public override Game.ImpactData GetImpactData()
-            {
-                return mGetImpactData_12.Invoke(this.instance);
-            }
-
             protected override void OnDead(Game.Entity attacker)
             {
-                if (mOnDead_13.CheckShouldInvokeBase(this.instance))
+                if (mOnDead_12.CheckShouldInvokeBase(this.instance))
                     base.OnDead(attacker);
                 else
-                    mOnDead_13.Invoke(this.instance, attacker);
+                    mOnDead_12.Invoke(this.instance, attacker);
+            }
+
+            public override Game.ImpactData GetImpactData()
+            {
+                if (mGetImpactData_13.CheckShouldInvokeBase(this.instance))
+                    return base.GetImpactData();
+                else
+                    return mGetImpactData_13.Invoke(this.instance);
             }
 
             public override string ToString()

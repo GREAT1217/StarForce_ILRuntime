@@ -19,6 +19,7 @@ namespace Game.Hotfix
             base.OnInit(procedureOwner);
 
             m_Games.Add((byte)GameMode.Survival, new SurvivalGame());
+            m_Games.Add((byte)HotfixGameMode.Boss, new BossGame());
         }
 
         public override void OnDestroy(IFsm<IProcedureManager> procedureOwner)

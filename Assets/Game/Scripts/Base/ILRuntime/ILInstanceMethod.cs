@@ -33,30 +33,30 @@ namespace Game
             m_Params = paramCount > 0 ? new object[paramCount] : null;
         }
 
-        public void Invoke()
+        public object Invoke()
         {
-            GameEntry.ILRuntime.AppDomain.Invoke(m_ILMethod, m_ILObject, m_Params);
+            return GameEntry.ILRuntime.AppDomain.Invoke(m_ILMethod, m_ILObject, m_Params);
         }
 
-        public void Invoke(object a)
+        public object Invoke(object a)
         {
             m_Params[0] = a;
-            GameEntry.ILRuntime.AppDomain.Invoke(m_ILMethod, m_ILObject, m_Params);
+            return GameEntry.ILRuntime.AppDomain.Invoke(m_ILMethod, m_ILObject, m_Params);
         }
 
-        public void Invoke(object a, object b)
+        public object Invoke(object a, object b)
         {
             m_Params[0] = a;
             m_Params[1] = b;
-            GameEntry.ILRuntime.AppDomain.Invoke(m_ILMethod, m_ILObject, m_Params);
+            return GameEntry.ILRuntime.AppDomain.Invoke(m_ILMethod, m_ILObject, m_Params);
         }
 
-        public void Invoke(object a, object b, object c)
+        public object Invoke(object a, object b, object c)
         {
             m_Params[0] = a;
             m_Params[1] = b;
             m_Params[2] = c;
-            GameEntry.ILRuntime.AppDomain.Invoke(m_ILMethod, m_ILObject, m_Params);
+            return GameEntry.ILRuntime.AppDomain.Invoke(m_ILMethod, m_ILObject, m_Params);
         }
     }
 }

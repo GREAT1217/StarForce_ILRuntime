@@ -11,7 +11,19 @@ namespace Game.Hotfix
 
         public void OnStartButtonClick()
         {
-            m_ProcedureMenu.StartGame();
+            ProcedureMenu procedureMenu = m_ProcedureMenu;
+            Close();
+
+            GameEntry.UI.OpenDialog(new DialogParams()
+            {
+                Mode = 2,
+                Title = GameEntry.Localization.GetString("AskSelectGame.Title"),
+                Message = GameEntry.Localization.GetString("AskSelectGame.Message"),
+                ConfirmText = GameEntry.Localization.GetString("GameMode.Survival"),
+                CancelText = GameEntry.Localization.GetString("GameMode.Boss"),
+                OnClickConfirm = delegate { procedureMenu.StartGame((byte)GameMode.Survival); },
+                OnClickCancel = delegate { procedureMenu.StartGame((byte)HotfixGameMode.Boss); },
+            });
         }
 
         public void OnSettingButtonClick()
@@ -59,7 +71,7 @@ namespace Game.Hotfix
 #endif
         {
             base.OnOpen(userData);
-            
+
             ILUserData data = userData as ILUserData;
             if (data == null)
             {
