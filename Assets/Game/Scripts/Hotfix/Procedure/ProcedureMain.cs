@@ -1,27 +1,25 @@
 ﻿using System.Collections.Generic;
+using GameFramework.Fsm;
+using GameFramework.Procedure;
 using UnityGameFramework.Runtime;
 
 namespace Game.Hotfix
 {
-    public class ProcedureMain : ProcedureBase
+    public class ProcedureMain : HotfixProcedure
     {
         private const float GameOverDelayedSeconds = 2f;
 
-        private readonly Dictionary<GameMode, GameBase> m_Games = new Dictionary<GameMode, GameBase>();
+        private readonly Dictionary<byte, GameBase> m_Games = new Dictionary<byte, GameBase>();
         private GameBase m_CurrentGame = null;
         private bool m_GotoMenu = false;
         private float m_GotoMenuDelaySeconds = 0f;
-        
-        public void GotoMenu()
-        {
-            m_GotoMenu = true;
-        }
 
         public override void OnInit(IFsm<IProcedureManager> procedureOwner)
         {
             base.OnInit(procedureOwner);
 
-            m_Games.Add(GameMode.Survival, new SurvivalGame());
+            m_Games.Add((byte)GameMode.Survival, new SurvivalGame());
+            m_Games.Add((byte)HotfixGameMode.Boss, new BossGame());
         }
 
         public override void OnDestroy(IFsm<IProcedureManager> procedureOwner)
@@ -36,7 +34,7 @@ namespace Game.Hotfix
             base.OnEnter(procedureOwner);
 
             m_GotoMenu = false;
-            GameMode gameMode = (GameMode)procedureOwner.GetData<VarByte>("GameMode").Value;
+            byte gameMode = procedureOwner.GetData<VarByte>("GameMode").Value;
             m_CurrentGame = m_Games[gameMode];
             m_CurrentGame.Initialize();
         }
@@ -72,7 +70,7 @@ namespace Game.Hotfix
             if (m_GotoMenuDelaySeconds >= GameOverDelayedSeconds)
             {
                 procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Menu"));
-                ChangeState<ProcedureChangeScene>(procedureOwner);
+                GameHotfixEntry.ChangeHotfixProcedure<ProcedureChangeScene>(procedureOwner);
             }
         }
     }

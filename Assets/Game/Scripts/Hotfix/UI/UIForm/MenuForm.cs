@@ -16,17 +16,17 @@ namespace Game.Hotfix
 
         public void OnSettingButtonClick()
         {
-            GameEntry.UI.OpenHotfixUIForm(UIFormId.SettingForm);
+            GameEntry.UI.OpenUIForm(UIFormId.SettingForm);
         }
 
         public void OnAboutButtonClick()
         {
-            GameEntry.UI.OpenHotfixUIForm(UIFormId.AboutForm);
+            GameEntry.UI.OpenUIForm(UIFormId.AboutForm);
         }
 
         public void OnQuitButtonClick()
         {
-            GameEntry.UI.OpenHotfixDialog(new DialogParams()
+            GameEntry.UI.OpenDialog(new DialogParams()
             {
                 Mode = 2,
                 Title = GameEntry.Localization.GetString("AskQuitGame.Title"),

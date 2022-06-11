@@ -10,7 +10,6 @@ namespace Game
 {
     public class ILRuntimeComponent : GameFrameworkComponent
     {
-        private IMethod m_Start;
         private IMethod m_Update;
         private IMethod m_Shutdown;
 
@@ -23,49 +22,53 @@ namespace Game
             private set;
         }
 
-        public void InitAppDomain(MemoryStream dll, MemoryStream pdb = null)
+        /// <summary>
+        /// 加载热更新DLL。
+        /// </summary>
+        public async void LoadHotfixDll()
         {
             // 首先实例化ILRuntime的AppDomain，AppDomain是一个应用程序域，每个AppDomain都是一个独立的沙盒
             AppDomain = new AppDomain();
 
             ILRuntimeHelper.InitILRuntime(AppDomain);
 
-            if (pdb == null)
-            {
-                AppDomain.LoadAssembly(dll);
-               // dll.Dispose();
-            }
-            else
-            {
-                // PDB文件是调试数据库，如需要在日志中显示报错的行号，则必须提供PDB文件，不过由于会额外耗用内存，正式发布时请将PDB去掉，下面LoadAssembly的时候pdb传null即可
-                AppDomain.LoadAssembly(dll, pdb, new ILRuntime.Mono.Cecil.Pdb.PdbReaderProvider());
-                AppDomain.DebugService.StartDebugService(56000);
-                dll.Dispose();
-                pdb.Dispose();
-            }
+            TextAsset dllAsset = await GameEntry.Resource.AwaitLoadAsset<TextAsset>(AssetUtility.GetHotfixAsset("Game.Hotfix.dll"));
+            var dll = new MemoryStream(dllAsset.bytes);
+            Debug.Log(dll.Length);
+            Log.Info("Hotfix.dll load complete.");
+
+#if DEBUG
+
+            // PDB文件是调试数据库，如需要在日志中显示报错的行号，则必须提供PDB文件，不过由于会额外耗用内存，正式发布时请将PDB去掉，下面LoadAssembly的时候pdb传null即可
+            TextAsset pdbAsset = await GameEntry.Resource.AwaitLoadAsset<TextAsset>(AssetUtility.GetHotfixAsset("Game.Hotfix.pdb"));
+            var pdb = new MemoryStream(pdbAsset.bytes);
+            Log.Info("Hotfix.pdb load complete.");
+
+            AppDomain.LoadAssembly(dll);
+            // AppDomain.LoadAssembly(dll, pdb, new ILRuntime.Mono.Cecil.Pdb.PdbReaderProvider());
+            // AppDomain.DebugService.StartDebugService(56000);
+
+#else
+
+            AppDomain.LoadAssembly(dll);
+
+#endif
+
+            StartHotfix();
         }
 
-        public void InitHotfix()
+        private void StartHotfix()
         {
             string typeFullName = "Game.Hotfix.GameHotfixEntry";
             IType type = AppDomain.LoadedTypes[typeFullName];
 
-            m_Start = type.GetMethod("Start", 1);
+            AppDomain.Invoke(typeFullName, "Start", null, null);
+
             m_Update = type.GetMethod("Update", 2);
             m_Shutdown = type.GetMethod("Shutdown", 0);
         }
 
-        public void StartHotfix(ProcedureILManager procedure)
-        {
-            // AppDomain.Invoke(typeFullName, "Start", null, procedure);
-            using (var ctx = AppDomain.BeginInvoke(m_Start))
-            {
-                ctx.PushObject(procedure);
-                ctx.Invoke();
-            }
-        }
-
-        public void UpdateHotfix(float elapseSeconds, float realElapseSeconds)
+        private void Update()
         {
             if (m_Update == null)
             {
@@ -74,13 +77,13 @@ namespace Game
 
             using (var ctx = AppDomain.BeginInvoke(m_Update))
             {
-                ctx.PushFloat(elapseSeconds);
-                ctx.PushFloat(realElapseSeconds);
+                ctx.PushFloat(Time.deltaTime);
+                ctx.PushFloat(Time.unscaledDeltaTime);
                 ctx.Invoke();
             }
         }
 
-        public void DestroyHotfix()
+        private void OnDestroy()
         {
             if (m_Shutdown == null)
             {

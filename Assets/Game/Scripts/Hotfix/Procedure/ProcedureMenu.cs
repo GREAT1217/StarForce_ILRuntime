@@ -1,9 +1,11 @@
 ﻿using GameFramework.Event;
+using GameFramework.Fsm;
+using GameFramework.Procedure;
 using UnityGameFramework.Runtime;
 
 namespace Game.Hotfix
 {
-    public class ProcedureMenu : ProcedureBase
+    public class ProcedureMenu : HotfixProcedure
     {
         private bool m_StartGame = false;
         private ILForm m_MenuForm = null;
@@ -20,7 +22,7 @@ namespace Game.Hotfix
             GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
 
             m_StartGame = false;
-            GameEntry.UI.OpenHotfixUIForm(UIFormId.MenuForm, this);
+            GameEntry.UI.OpenHotfixUIForm(HotfixUIFormId.MenuForm, this);
         }
 
         public override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)
@@ -44,7 +46,7 @@ namespace Game.Hotfix
             {
                 procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Main"));
                 procedureOwner.SetData<VarByte>("GameMode", (byte)GameMode.Survival);
-                ChangeState<ProcedureChangeScene>(procedureOwner);
+                GameHotfixEntry.ChangeHotfixProcedure<ProcedureChangeScene>(procedureOwner);
             }
         }
 

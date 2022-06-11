@@ -1,10 +1,12 @@
 ﻿using GameFramework.DataTable;
 using GameFramework.Event;
+using GameFramework.Fsm;
+using GameFramework.Procedure;
 using UnityGameFramework.Runtime;
 
 namespace Game.Hotfix
 {
-    public class ProcedureChangeScene : ProcedureBase
+    public class ProcedureChangeScene : HotfixProcedure
     {
         private const int MenuSceneId = 1;
 
@@ -76,11 +78,11 @@ namespace Game.Hotfix
 
             if (m_ChangeToMenu)
             {
-                ChangeState<ProcedureMenu>(procedureOwner);
+                GameHotfixEntry.ChangeHotfixProcedure<ProcedureMenu>(procedureOwner);
             }
             else
             {
-                ChangeState<ProcedureMain>(procedureOwner);
+                GameHotfixEntry.ChangeHotfixProcedure<ProcedureMain>(procedureOwner);
             }
         }
 

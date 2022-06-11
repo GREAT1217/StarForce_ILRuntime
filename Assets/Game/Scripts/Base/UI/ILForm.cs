@@ -4,12 +4,6 @@ namespace Game
 {
     public class ILForm : UGuiForm
     {
-        public ReferenceCollector ReferenceCollector
-        {
-            get;
-            private set;
-        }
-
         // 热更新层的方法缓存。
         private ILInstanceMethod m_OnRecycle;
         private ILInstanceMethod m_OnOpen;
@@ -31,6 +25,12 @@ namespace Game
             set;
         }
 
+        public ReferenceCollector ReferenceCollector
+        {
+            get;
+            private set;
+        }
+
         protected override void OnInit(object userData)
         {
             ILUserData data = userData as ILUserData;
@@ -44,24 +44,24 @@ namespace Game
             ReferenceCollector = GetComponent<ReferenceCollector>();
 
             // 获取热更新层的实例。
-            IType type = GameEntry.ILRuntime.AppDomain.LoadedTypes[data.HotLogicTypeFullName];
+            IType type = GameEntry.ILRuntime.AppDomain.LoadedTypes[data.HotfixTypeName];
             HotfixForm = ((ILType)type).Instantiate();
 
             // 获取热更新层的方法并缓存。
-            m_OnRecycle = new ILInstanceMethod(HotfixForm, data.HotLogicTypeFullName, "OnRecycle", 0);
-            m_OnOpen = new ILInstanceMethod(HotfixForm, data.HotLogicTypeFullName, "OnOpen", 1);
-            m_OnClose = new ILInstanceMethod(HotfixForm, data.HotLogicTypeFullName, "OnClose", 2);
-            m_OnPause = new ILInstanceMethod(HotfixForm, data.HotLogicTypeFullName, "OnPause", 0);
-            m_OnResume = new ILInstanceMethod(HotfixForm, data.HotLogicTypeFullName, "OnResume", 0);
-            m_OnCover = new ILInstanceMethod(HotfixForm, data.HotLogicTypeFullName, "OnCover", 0);
-            m_OnReveal = new ILInstanceMethod(HotfixForm, data.HotLogicTypeFullName, "OnReveal", 0);
-            m_OnRefocus = new ILInstanceMethod(HotfixForm, data.HotLogicTypeFullName, "OnRefocus", 1);
-            m_OnUpdate = new ILInstanceMethod(HotfixForm, data.HotLogicTypeFullName, "OnUpdate", 2);
-            m_OnDepthChanged = new ILInstanceMethod(HotfixForm, data.HotLogicTypeFullName, "OnDepthChanged", 2);
+            m_OnRecycle = new ILInstanceMethod(HotfixForm, data.HotfixTypeName, "OnRecycle", 0);
+            m_OnOpen = new ILInstanceMethod(HotfixForm, data.HotfixTypeName, "OnOpen", 1);
+            m_OnClose = new ILInstanceMethod(HotfixForm, data.HotfixTypeName, "OnClose", 2);
+            m_OnPause = new ILInstanceMethod(HotfixForm, data.HotfixTypeName, "OnPause", 0);
+            m_OnResume = new ILInstanceMethod(HotfixForm, data.HotfixTypeName, "OnResume", 0);
+            m_OnCover = new ILInstanceMethod(HotfixForm, data.HotfixTypeName, "OnCover", 0);
+            m_OnReveal = new ILInstanceMethod(HotfixForm, data.HotfixTypeName, "OnReveal", 0);
+            m_OnRefocus = new ILInstanceMethod(HotfixForm, data.HotfixTypeName, "OnRefocus", 1);
+            m_OnUpdate = new ILInstanceMethod(HotfixForm, data.HotfixTypeName, "OnUpdate", 2);
+            m_OnDepthChanged = new ILInstanceMethod(HotfixForm, data.HotfixTypeName, "OnDepthChanged", 2);
 
             // 调用热更新层的 OnInit()
             data.ILLogic = this;
-            GameEntry.ILRuntime.AppDomain.Invoke(data.HotLogicTypeFullName, "OnInit", HotfixForm, data);
+            GameEntry.ILRuntime.AppDomain.Invoke(data.HotfixTypeName, "OnInit", HotfixForm, data);
         }
 
         protected override void OnRecycle()

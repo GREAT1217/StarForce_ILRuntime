@@ -9,14 +9,6 @@ namespace Game.Hotfix
         private float m_ElapseSeconds = 0f;
         private EnemyAircraft m_EnemyAircraft = null;
 
-        public override GameMode GameMode
-        {
-            get
-            {
-                return GameMode.Boss;
-            }
-        }
-
         public override void Initialize()
         {
             base.Initialize();

@@ -10,7 +10,7 @@ namespace Game
         /// <summary>
         /// 热更逻辑类型名。
         /// </summary>
-        public string HotLogicTypeFullName
+        public string HotfixTypeName
         {
             get;
         }
@@ -39,7 +39,7 @@ namespace Game
         /// <param name="userData">用户自定义数据。</param>
         public ILUserData(string hotLogicTypeName, object userData)
         {
-            HotLogicTypeFullName = Utility.Text.Format("{0}.{1}", "Game.Hotfix", hotLogicTypeName);
+            HotfixTypeName = Utility.Text.Format("{0}.{1}", "Game.Hotfix", hotLogicTypeName);
             UserData = userData;
         }
     }

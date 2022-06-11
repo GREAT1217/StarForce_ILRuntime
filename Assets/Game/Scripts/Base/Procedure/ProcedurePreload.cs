@@ -71,7 +71,7 @@ namespace Game
             // procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Menu"));
             // ChangeState<ProcedureChangeScene>(procedureOwner);
 
-            ChangeState<ProcedureILRuntime>(procedureOwner);
+            ChangeState<ProcedureILManager>(procedureOwner);
         }
 
         private void PreloadResources()

@@ -65,7 +65,7 @@ namespace Game.Editor
             IOUtility.CreateDirectoryIfNotExists(AdapterPath);
 
             // TODO Game 根据项目需求设置
-            GenerateCrossBindingAdapter<GameFramework.ObjectPool.ObjectBase>();
+            GenerateCrossBindingAdapter<GameBase>();
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
@@ -101,26 +101,6 @@ namespace Game.Editor
             }
 
             Debug.Log(Utility.Text.Format("Generate {0} Adapter Succeed.", type.ToString()));
-        }
-        
-        
-        
-        
-        
-           
-        private const string DllPath = "Library/ScriptAssemblies";
-        private const string DllName = "Game.Hotfix.dll";
-        private const string PdbName = "Game.Hotfix.pdb";
-        
-        [MenuItem("Generator/Generate HotfixDll 2", false, 81)]
-        private static void GenerateHotfixDLL2()
-        {
-            IOUtility.CreateDirectoryIfNotExists(HotfixPath);
-        
-            File.Copy(Path.Combine(DllPath, DllName),  AssetUtility.GetHotfixAsset(DllName), true);
-            File.Copy(Path.Combine(DllPath, PdbName), AssetUtility.GetHotfixAsset(PdbName), true);
-            Debug.Log("Hotfix.dll, Hotfix.pdb 复制完成");
-            AssetDatabase.Refresh();
         }
     }
 }

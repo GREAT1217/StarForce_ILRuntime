@@ -2,7 +2,6 @@
 using GameFramework.Fsm;
 using GameFramework.Procedure;
 using GameFramework.Resource;
-using ILRuntime.Runtime.Enviorment;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
@@ -12,8 +11,8 @@ namespace Game
     {
         private bool m_DllLoaded;
         private bool m_PdbLoaded;
-        private byte[] m_DllStream;
-        private byte[] m_PdbStream;
+        private MemoryStream m_DllStream;
+        private MemoryStream m_PdbStream;
 
         protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {
@@ -39,14 +38,7 @@ namespace Game
 #else
             if (m_DllLoaded)
             {
-                //GameEntry.ILRuntime.InitAppDomain(m_DllStream);
-
-                AppDomain appDomain = new AppDomain();
-
-                ILRuntimeHelper.InitILRuntime(appDomain);
-                MemoryStream dllStream = new MemoryStream(m_DllStream);
-                appDomain.LoadAssembly(dllStream);
-                
+                GameEntry.ILRuntime.InitAppDomain(m_DllStream);
                 ChangeState<ProcedurePreload>(procedureOwner);
             }
 #endif
@@ -55,8 +47,7 @@ namespace Game
         private void OnDllLoadedSuccess(string assetName, object asset, float duration, object userdata)
         {
             TextAsset dll = (TextAsset)asset;
-            m_DllStream = dll.bytes;
-            Debug.Log(m_DllStream.Length);
+            m_DllStream = new MemoryStream(dll.bytes);
             m_DllLoaded = true;
             Log.Info("Load '{0}' OK.", assetName);
         }
@@ -69,7 +60,7 @@ namespace Game
         private void OnPdbLoadedSuccess(string assetName, object asset, float duration, object userdata)
         {
             TextAsset pdb = (TextAsset)asset;
-            m_DllStream = pdb.bytes;
+            m_PdbStream = new MemoryStream(pdb.bytes);
             m_PdbLoaded = true;
             Log.Info("Load '{0}' OK.", assetName);
         }

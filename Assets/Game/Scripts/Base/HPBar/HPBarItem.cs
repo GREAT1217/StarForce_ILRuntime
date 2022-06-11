@@ -10,7 +10,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 
-namespace Game.Runtime
+namespace Game
 {
     public class HPBarItem : MonoBehaviour
     {

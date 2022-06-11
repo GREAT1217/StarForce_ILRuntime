@@ -12,6 +12,7 @@ namespace Game
         public static void InitILRuntime(AppDomain appDomain)
         {
             // 这里做一些ILRuntime的注册
+            appDomain.RegisterCrossBindingAdaptor(new GameBaseAdapter());
 
             appDomain.DelegateManager.RegisterMethodDelegate<float>();
             appDomain.DelegateManager.RegisterMethodDelegate<object, ILTypeInstance>();
@@ -69,8 +70,6 @@ namespace Game
                     ((Action<object, ILTypeInstance>)act)(sender, e);
                 });
             });
-            
-            appDomain.RegisterCrossBindingAdaptor(new ObjectBaseAdapter());
         }
     }
 }

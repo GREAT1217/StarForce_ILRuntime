@@ -7,12 +7,6 @@ namespace Game
 {
     public abstract class ILEntity : Entity
     {
-        public ReferenceCollector ReferenceCollector
-        {
-            get;
-            private set;
-        }
-
         // 热更新层的方法缓存。
         private ILInstanceMethod m_OnRecycle;
         private ILInstanceMethod m_OnShow;
@@ -33,6 +27,12 @@ namespace Game
             set;
         }
 
+        public ReferenceCollector ReferenceCollector
+        {
+            get;
+            private set;
+        }
+
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
@@ -48,23 +48,23 @@ namespace Game
             ReferenceCollector = GetComponent<ReferenceCollector>();
 
             // 获取热更新层的实例。
-            IType type = GameEntry.ILRuntime.AppDomain.LoadedTypes[data.HotLogicTypeFullName];
+            IType type = GameEntry.ILRuntime.AppDomain.LoadedTypes[data.HotfixTypeName];
             HotfixEntity = ((ILType)type).Instantiate();
 
             // 获取热更新层的方法并缓存。
-            m_OnRecycle = new ILInstanceMethod(HotfixEntity, data.HotLogicTypeFullName, "OnRecycle", 0);
-            m_OnShow = new ILInstanceMethod(HotfixEntity, data.HotLogicTypeFullName, "OnShow", 1);
-            m_OnHide = new ILInstanceMethod(HotfixEntity, data.HotLogicTypeFullName, "OnHide", 2);
-            m_OnAttached = new ILInstanceMethod(HotfixEntity, data.HotLogicTypeFullName, "OnAttached", 3);
-            m_OnDetached = new ILInstanceMethod(HotfixEntity, data.HotLogicTypeFullName, "OnDetached", 2);
-            m_OnAttachTo = new ILInstanceMethod(HotfixEntity, data.HotLogicTypeFullName, "OnAttachTo", 3);
-            m_OnDetachFrom = new ILInstanceMethod(HotfixEntity, data.HotLogicTypeFullName, "OnDetachFrom", 2);
-            m_OnUpdate = new ILInstanceMethod(HotfixEntity, data.HotLogicTypeFullName, "OnUpdate", 2);
-            m_InternalSetVisible = new ILInstanceMethod(HotfixEntity, data.HotLogicTypeFullName, "InternalSetVisible", 1);
+            m_OnRecycle = new ILInstanceMethod(HotfixEntity, data.HotfixTypeName, "OnRecycle", 0);
+            m_OnShow = new ILInstanceMethod(HotfixEntity, data.HotfixTypeName, "OnShow", 1);
+            m_OnHide = new ILInstanceMethod(HotfixEntity, data.HotfixTypeName, "OnHide", 2);
+            m_OnAttached = new ILInstanceMethod(HotfixEntity, data.HotfixTypeName, "OnAttached", 3);
+            m_OnDetached = new ILInstanceMethod(HotfixEntity, data.HotfixTypeName, "OnDetached", 2);
+            m_OnAttachTo = new ILInstanceMethod(HotfixEntity, data.HotfixTypeName, "OnAttachTo", 3);
+            m_OnDetachFrom = new ILInstanceMethod(HotfixEntity, data.HotfixTypeName, "OnDetachFrom", 2);
+            m_OnUpdate = new ILInstanceMethod(HotfixEntity, data.HotfixTypeName, "OnUpdate", 2);
+            m_InternalSetVisible = new ILInstanceMethod(HotfixEntity, data.HotfixTypeName, "InternalSetVisible", 1);
 
             // 调用热更新层的 OnInit()
             data.ILLogic = this;
-            GameEntry.ILRuntime.AppDomain.Invoke(data.HotLogicTypeFullName, "OnInit", HotfixEntity, data);
+            GameEntry.ILRuntime.AppDomain.Invoke(data.HotfixTypeName, "OnInit", HotfixEntity, data);
         }
 
         protected override void OnRecycle()
