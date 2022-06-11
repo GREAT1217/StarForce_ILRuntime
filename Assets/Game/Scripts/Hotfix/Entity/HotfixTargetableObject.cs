@@ -3,7 +3,7 @@ using UnityGameFramework.Runtime;
 
 namespace Game.Hotfix
 {
-    public class HotfixTargetableObject
+    public abstract class HotfixTargetableObject
     {
         protected TargetableObjectData TargetableObjectData
         {
@@ -14,7 +14,7 @@ namespace Game.Hotfix
         /// <summary>
         /// 底层实体逻辑。
         /// </summary>
-        protected ILTargetableObject ILTargetableObject
+        public ILTargetableObject ILTargetableObject
         {
             get;
             private set;
@@ -48,7 +48,7 @@ namespace Game.Hotfix
                 Log.Error("ILTargetableObject userData is invalid.");
                 return;
             }
-            
+
             ILTargetableObject.CachedTransform.position = TargetableObjectData.Position;
             ILTargetableObject.CachedTransform.rotation = TargetableObjectData.Rotation;
         }
@@ -56,8 +56,9 @@ namespace Game.Hotfix
         /// <summary>
         /// 实体隐藏。
         /// </summary>
+        /// <param name="isShutdown">是否是关闭状态机时触发。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public virtual void OnHide(object userData)
+        public virtual void OnHide(bool isShutdown, object userData)
         {
         }
 
@@ -120,7 +121,7 @@ namespace Game.Hotfix
         /// 触发器进入的回调。
         /// </summary>
         /// <param name="other"></param>
-        protected virtual void OnTriggerEnter(Collider other)
+        public virtual void OnTriggerEnter(Collider other)
         {
         }
 
@@ -128,8 +129,14 @@ namespace Game.Hotfix
         /// 触发器离开的回调。
         /// </summary>
         /// <param name="other"></param>
-        protected virtual void OnTriggerExit(Collider other)
+        public virtual void OnTriggerExit(Collider other)
         {
         }
+
+        public virtual void OnDead(Entity attacker)
+        {
+        }
+
+        public abstract ImpactData GetImpactData();
     }
 }

@@ -59,7 +59,7 @@ namespace Game.Hotfix
 #endif
         {
             base.OnOpen(userData);
-            
+
             ILUserData data = userData as ILUserData;
             if (data == null)
             {

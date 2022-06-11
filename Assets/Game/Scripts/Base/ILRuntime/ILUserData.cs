@@ -39,7 +39,7 @@ namespace Game
         /// <param name="userData">用户自定义数据。</param>
         public ILUserData(string hotLogicTypeName, object userData)
         {
-            HotfixTypeName = Utility.Text.Format("{0}.{1}", "Game.Hotfix", hotLogicTypeName);
+            HotfixTypeName = hotLogicTypeName;
             UserData = userData;
         }
     }

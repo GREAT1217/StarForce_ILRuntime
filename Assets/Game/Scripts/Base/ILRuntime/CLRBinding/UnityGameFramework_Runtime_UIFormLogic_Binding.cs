@@ -14,33 +14,33 @@ using ILRuntime.CLR.Utils;
 
 namespace ILRuntime.Runtime.Generated
 {
-    unsafe class Game_TargetableObject_Binding
+    unsafe class UnityGameFramework_Runtime_UIFormLogic_Binding
     {
         public static void Register(ILRuntime.Runtime.Enviorment.AppDomain app)
         {
             BindingFlags flag = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly;
             MethodBase method;
             Type[] args;
-            Type type = typeof(Game.TargetableObject);
+            Type type = typeof(UnityGameFramework.Runtime.UIFormLogic);
             args = new Type[]{};
-            method = type.GetMethod("get_IsDead", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_IsDead_0);
+            method = type.GetMethod("get_Visible", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_Visible_0);
 
 
         }
 
 
-        static StackObject* get_IsDead_0(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_Visible_0(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            Game.TargetableObject instance_of_this_method = (Game.TargetableObject)typeof(Game.TargetableObject).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
+            UnityGameFramework.Runtime.UIFormLogic instance_of_this_method = (UnityGameFramework.Runtime.UIFormLogic)typeof(UnityGameFramework.Runtime.UIFormLogic).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
-            var result_of_this_method = instance_of_this_method.IsDead;
+            var result_of_this_method = instance_of_this_method.Visible;
 
             __ret->ObjectType = ObjectTypes.Integer;
             __ret->Value = result_of_this_method ? 1 : 0;

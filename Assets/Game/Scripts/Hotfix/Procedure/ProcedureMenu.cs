@@ -31,7 +31,7 @@ namespace Game.Hotfix
 
             GameEntry.Event.Unsubscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
 
-            if (m_MenuForm != null)
+            if (m_MenuForm != null && m_MenuForm.Visible)
             {
                 m_MenuForm.Close(isShutdown);
                 m_MenuForm = null;

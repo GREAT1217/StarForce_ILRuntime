@@ -5,7 +5,7 @@ using UnityGameFramework.Runtime;
 
 namespace Game
 {
-    public abstract class ILEntity : Entity
+    public class ILEntity : Entity
     {
         // 热更新层的方法缓存。
         private ILInstanceMethod m_OnRecycle;
@@ -35,15 +35,13 @@ namespace Game
 
         protected override void OnInit(object userData)
         {
-            base.OnInit(userData);
-
             ILUserData data = userData as ILUserData;
             if (data == null)
             {
                 return;
             }
 
-            base.OnInit(userData);
+            base.OnInit(data.UserData);
 
             ReferenceCollector = GetComponent<ReferenceCollector>();
 

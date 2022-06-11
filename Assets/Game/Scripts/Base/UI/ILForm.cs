@@ -39,7 +39,7 @@ namespace Game
                 return;
             }
 
-            base.OnInit(userData);
+            base.OnInit(data.UserData);
 
             ReferenceCollector = GetComponent<ReferenceCollector>();
 

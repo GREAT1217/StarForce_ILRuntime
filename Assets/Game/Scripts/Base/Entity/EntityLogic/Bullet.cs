@@ -18,6 +18,8 @@ namespace Game
         [SerializeField]
         private BulletData m_BulletData = null;
 
+        private Vector3 m_Direction;
+
         public ImpactData GetImpactData()
         {
             return new ImpactData(m_BulletData.OwnerCamp, 0, m_BulletData.Attack, 0);
@@ -50,6 +52,16 @@ namespace Game
             if (m_BulletData.OwnerCamp == CampType.Unknown)
             {
                 Log.Error(gameObject.name + "数据有误");
+                return;
+            }
+
+            if (m_BulletData.OwnerCamp == CampType.Enemy || m_BulletData.OwnerCamp == CampType.Enemy2)
+            {
+                m_Direction = Vector3.back;
+            }
+            else
+            {
+                m_Direction = Vector3.forward;
             }
         }
 
@@ -66,7 +78,7 @@ namespace Game
                 return;
             }
 
-            CachedTransform.Translate(Vector3.forward * m_BulletData.Speed * elapseSeconds, Space.World);
+            CachedTransform.Translate(m_Direction * m_BulletData.Speed * elapseSeconds, Space.World);
         }
     }
 }

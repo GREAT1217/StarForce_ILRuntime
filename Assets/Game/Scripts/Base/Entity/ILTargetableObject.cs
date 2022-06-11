@@ -4,7 +4,7 @@ using UnityGameFramework.Runtime;
 
 namespace Game
 {
-    public abstract class ILTargetableObject : TargetableObject
+    public class ILTargetableObject : TargetableObject
     {
         public ReferenceCollector ReferenceCollector
         {
@@ -24,6 +24,8 @@ namespace Game
         private ILInstanceMethod m_InternalSetVisible;
         private ILInstanceMethod m_OnTriggerEnter;
         private ILInstanceMethod m_OnTriggerExit;
+        private ILInstanceMethod m_OnDead;
+        private ILInstanceMethod m_GetImpactData;
 
         /// <summary>
         /// 热更新层的实体实例。
@@ -36,15 +38,13 @@ namespace Game
 
         protected override void OnInit(object userData)
         {
-            base.OnInit(userData);
-
             ILUserData data = userData as ILUserData;
             if (data == null)
             {
                 return;
             }
 
-            base.OnInit(userData);
+            base.OnInit(data.UserData);
 
             ReferenceCollector = GetComponent<ReferenceCollector>();
 
@@ -64,6 +64,8 @@ namespace Game
             m_InternalSetVisible = new ILInstanceMethod(HotfixEntity, data.HotfixTypeName, "InternalSetVisible", 1);
             m_OnTriggerEnter = new ILInstanceMethod(HotfixEntity, data.HotfixTypeName, "OnTriggerEnter", 1);
             m_OnTriggerExit = new ILInstanceMethod(HotfixEntity, data.HotfixTypeName, "OnTriggerExit", 1);
+            m_OnDead = new ILInstanceMethod(HotfixEntity, data.HotfixTypeName, "OnDead", 1);
+            m_GetImpactData = new ILInstanceMethod(HotfixEntity, data.HotfixTypeName, "GetImpactData", 0);
 
             // 调用热更新层的 OnInit()
             data.ILLogic = this;
@@ -78,8 +80,15 @@ namespace Game
 
         protected override void OnShow(object userData)
         {
-            base.OnShow(userData);
-            m_OnShow.Invoke(userData);
+            ILUserData data = userData as ILUserData;
+            if (data == null)
+            {
+                return;
+            }
+
+            base.OnShow(data.UserData);
+            
+            m_OnShow.Invoke(data.UserData);
         }
 
         protected override void OnHide(bool isShutdown, object userData)
@@ -134,6 +143,17 @@ namespace Game
         {
             base.OnTriggerExit(other);
             m_OnTriggerExit.Invoke(other);
+        }
+
+        protected override void OnDead(Entity attacker)
+        {
+            base.OnDead(attacker);
+            m_OnDead.Invoke(attacker);
+        }
+
+        public override ImpactData GetImpactData()
+        {
+            return m_GetImpactData.Invoke() as ImpactData;
         }
     }
 }
