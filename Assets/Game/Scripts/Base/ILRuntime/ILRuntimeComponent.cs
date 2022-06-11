@@ -47,16 +47,18 @@ namespace Game
 
         public void InitHotfix()
         {
+
+        }
+
+        public void StartHotfix(ProcedureILManager procedure)
+        {
             string typeFullName = "Game.Hotfix.GameHotfixEntry";
             IType type = AppDomain.LoadedTypes[typeFullName];
 
             m_Start = type.GetMethod("Start", 1);
             m_Update = type.GetMethod("Update", 2);
             m_Shutdown = type.GetMethod("Shutdown", 0);
-        }
-
-        public void StartHotfix(ProcedureILManager procedure)
-        {
+            
             // AppDomain.Invoke(typeFullName, "Start", null, procedure);
             using (var ctx = AppDomain.BeginInvoke(m_Start))
             {

@@ -23,6 +23,10 @@ namespace Game
             set;
         }
 
+        public ProcedureILBase()
+        {
+        }
+
         public ProcedureILBase(string hotfixTypeName)
         {
             // 获取热更新层的实例。

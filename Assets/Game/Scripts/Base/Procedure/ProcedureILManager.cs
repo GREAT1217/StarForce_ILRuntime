@@ -18,7 +18,6 @@ namespace Game
         {
             base.OnEnter(procedureOwner);
 
-            GameEntry.ILRuntime.InitHotfix();
             GameEntry.ILRuntime.StartHotfix(this);
         }
 

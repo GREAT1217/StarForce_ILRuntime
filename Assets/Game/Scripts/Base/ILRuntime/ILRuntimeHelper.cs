@@ -12,8 +12,15 @@ namespace Game
         public static void InitILRuntime(AppDomain appDomain)
         {
             // 这里做一些ILRuntime的注册
+            
+            // 跨域继承适配器
             appDomain.RegisterCrossBindingAdaptor(new GameBaseAdapter());
+            appDomain.RegisterCrossBindingAdaptor(new ILFormAdapter());
+            appDomain.RegisterCrossBindingAdaptor(new ILEntityAdapter());
+            appDomain.RegisterCrossBindingAdaptor(new ILTargetableObjectAdapter());
+            appDomain.RegisterCrossBindingAdaptor(new ProcedureILBaseAdapter());
 
+            // 委托适配器
             appDomain.DelegateManager.RegisterMethodDelegate<float>();
             appDomain.DelegateManager.RegisterMethodDelegate<object, ILTypeInstance>();
             appDomain.DelegateManager.RegisterMethodDelegate<object, GameEventArgs>();
@@ -37,9 +44,9 @@ namespace Game
             });
             appDomain.DelegateManager.RegisterDelegateConvertor<UnityAction<bool>>(act =>
             {
-                return new UnityAction<Boolean>(arg0 =>
+                return new UnityAction<bool>(arg0 =>
                 {
-                    ((Action<Boolean>)act)(arg0);
+                    ((Action<bool>)act)(arg0);
                 });
             });
             appDomain.DelegateManager.RegisterDelegateConvertor<UnityAction>(action =>
@@ -68,6 +75,13 @@ namespace Game
                 return new EventHandler<ILTypeInstance>((sender, e) =>
                 {
                     ((Action<object, ILTypeInstance>)act)(sender, e);
+                });
+            });
+            appDomain.DelegateManager.RegisterDelegateConvertor<GameFramework.GameFrameworkAction<object>>((act) =>
+            {
+                return new GameFramework.GameFrameworkAction<object>((obj) =>
+                {
+                    ((Action<object>)act)(obj);
                 });
             });
         }

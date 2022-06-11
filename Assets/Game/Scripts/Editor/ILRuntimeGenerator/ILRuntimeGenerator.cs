@@ -66,6 +66,10 @@ namespace Game.Editor
 
             // TODO Game 根据项目需求设置
             GenerateCrossBindingAdapter<GameBase>();
+            GenerateCrossBindingAdapter<ILForm>();
+            GenerateCrossBindingAdapter<ILEntity>();
+            GenerateCrossBindingAdapter<ILTargetableObject>();
+            GenerateCrossBindingAdapter<ProcedureILBase>();
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
