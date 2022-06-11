@@ -7,7 +7,6 @@
       <Resource Name="Entities" FileSystem="Resources" LoadType="0" Packed="True" />
       <Resource Name="Fonts" FileSystem="UI" LoadType="0" Packed="True" ResourceGroups="Base" />
       <Resource Name="HotfixCode" LoadType="0" Packed="False" />
-      <Resource Name="HotfixGame" LoadType="0" Packed="False" />
       <Resource Name="Localization/Dictionaries" Variant="en-us" FileSystem="UI" LoadType="0" Packed="True" ResourceGroups="Base" />
       <Resource Name="Localization/Dictionaries" Variant="ko-kr" FileSystem="UI" LoadType="0" Packed="True" ResourceGroups="Base" />
       <Resource Name="Localization/Dictionaries" Variant="zh-cn" FileSystem="UI" LoadType="0" Packed="True" ResourceGroups="Base" />
@@ -139,7 +138,6 @@
       <Asset Guid="caa829ab2ffc71340a69253afdf58365" ResourceName="Music/Menu" />
       <Asset Guid="cadd0764941c8b646ae79b51d0ea8285" ResourceName="UI/UISprites/Common" />
       <Asset Guid="cfe53cf384344bd47a8680f8c5f97a7b" ResourceName="DataTables" />
-      <Asset Guid="d57bbd9efcbced6479d0415c7fa8e237" ResourceName="HotfixGame" />
       <Asset Guid="d9808401c68af274a8edfbed3d1b53c7" ResourceName="Meshes" />
       <Asset Guid="db58965402f12ed47b4dad61a9e48c9d" ResourceName="UI/UISprites/Icons" />
       <Asset Guid="e0792649e7774a24d8e7cceba0231c61" ResourceName="DataTables" />
