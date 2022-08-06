@@ -1,6 +1,8 @@
 ## 简介
 
-使用 ILRuntime 对 StarForce 实现部分游戏逻辑热更新，包含 UI 模块、Entity 模块、Procedure 模块、Game 模块。下面简单介绍下各模块的热更实现。
+使用 ILRuntime 对 StarForce 实现部分游戏逻辑热更新，包含 UI 模块、Entity 模块、Procedure 模块、Game 模块。
+
+### 逻辑实现
 
 > **UI：** ILRuntime 不推荐热更 MonoBehavior，所以热更层 HotfixForm 使用 ILUserData 和底层 ILForm 进行逻辑绑定，ILForm 逻辑继承自框架的 UIForm，可以实现使用 GameEntry.UI 操作 HotfixForm。ILForm 内部使用 ReferenceController 记录引用的组件，用于 HotfixForm 访问 UI 组件。
 >
@@ -10,15 +12,23 @@
 >
 > **Game：** 游戏模块是纯逻辑类，与 GameFramework 底层没有交互，可以直接跨域继承实现逻辑热更。
 
+### 演示视频
 
+使用 HybridCLR 进行的热更新，测试打包流程是一样的 [bilibili](https://www.bilibili.com/video/BV1wB4y1Q7JK) 
 
-演示视频 - [bilibili](https://www.bilibili.com/video/BV1wB4y1Q7JK) （使用 HuaTuo 进行的热更新，测试打包流程是一样的）
+### 流程图
 
+![StarForce_ILRuntime_Procedure](https://gitee.com/great1217/cdn/raw/master/images/StarForce_ILRuntime_Procedure.png)
 
+### 使用步骤
 
-![游戏流程图](ReadMe/Procedure.png)
+1.	修改 Game.Hotfix 程序集下的可热更逻辑。
+2.	在 "ILRuntimeGenerator.cs" 的 "GenerateCrossBindingAdapter" 函数中增加需要跨域继承的类型。
+3.	依次使用菜单 "Ganerator" 生成 HotfixDll、跨域继承适配器 CrossBindingAdapter、CLR Binding。
 
+### 注意事项
 
+本项目使用了 Submodule： [UnityGameFramework](https://github.com/EllanJiang/UnityGameFramework) 和 [UnityGameExtension](https://github.com/GREAT1217/UnityGameExtension) ，克隆仓库后，需要更新子模块。
 
 ## 相关链接
 
