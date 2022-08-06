@@ -1,4 +1,5 @@
-﻿using ILRuntime.CLR.TypeSystem;
+﻿using GameExtension;
+using ILRuntime.CLR.TypeSystem;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
@@ -6,7 +7,7 @@ namespace Game
 {
     public class ILTargetableObject : TargetableObject
     {
-        public ReferenceCollector ReferenceCollector
+        public ComponentCollection Components
         {
             get;
             private set;
@@ -46,7 +47,7 @@ namespace Game
 
             base.OnInit(data.UserData);
 
-            ReferenceCollector = GetComponent<ReferenceCollector>();
+            Components = GetComponent<ComponentCollection>();
 
             // 获取热更新层的实例。
             IType type = GameEntry.ILRuntime.AppDomain.LoadedTypes[data.HotfixTypeName];
@@ -87,7 +88,7 @@ namespace Game
             }
 
             base.OnShow(data.UserData);
-            
+
             m_OnShow.Invoke(data.UserData);
         }
 

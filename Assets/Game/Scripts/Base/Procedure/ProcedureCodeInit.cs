@@ -10,8 +10,10 @@ namespace Game
     public class ProcedureCodeInit : ProcedureBase
     {
         private bool m_DllLoaded;
-        private bool m_PdbLoaded;
         private MemoryStream m_DllStream;
+
+        #pragma warning disable CS0414
+        private bool m_PdbLoaded;
         private MemoryStream m_PdbStream;
 
         protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)

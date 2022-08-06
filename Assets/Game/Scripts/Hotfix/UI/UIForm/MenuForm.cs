@@ -1,12 +1,12 @@
-﻿using UnityEngine;
+﻿using GameExtension;
+using UnityEngine;
+using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 
 namespace Game.Hotfix
 {
     public class MenuForm : HotfixForm
     {
-        private GameObject m_QuitButton = null;
-
         private ProcedureMenu m_ProcedureMenu = null;
 
         public void OnStartButtonClick()
@@ -55,13 +55,13 @@ namespace Game.Hotfix
         {
             base.OnInit(userData);
 
-            ReferenceCollector collector = ILForm.ReferenceCollector;
-            m_QuitButton = collector.GetGO("bt_Quit");
-            (m_QuitButton.GetComponent(typeof(CommonButton)) as CommonButton).OnClick.AddListener(OnQuitButtonClick);
-            m_QuitButton.SetActive(Application.platform != RuntimePlatform.IPhonePlayer);
-            (collector.Get("bt_About", typeof(CommonButton)) as CommonButton).OnClick.AddListener(OnAboutButtonClick);
-            (collector.Get("bt_Setting", typeof(CommonButton)) as CommonButton).OnClick.AddListener(OnSettingButtonClick);
-            (collector.Get("bt_Start", typeof(CommonButton)) as CommonButton).OnClick.AddListener(OnStartButtonClick);
+            ComponentCollection components = ILForm.Components;
+            components.GetComponent<Button>(0).onClick.AddListener(OnStartButtonClick);
+            components.GetComponent<Button>(1).onClick.AddListener(OnSettingButtonClick);
+            components.GetComponent<Button>(2).onClick.AddListener(OnAboutButtonClick);
+            Button quitButton = components.GetComponent<Button>(3);
+            quitButton.onClick.AddListener(OnQuitButtonClick);
+            quitButton.gameObject.SetActive(Application.platform != RuntimePlatform.IPhonePlayer);
         }
 
 #if UNITY_2017_3_OR_NEWER
@@ -85,8 +85,6 @@ namespace Game.Hotfix
                 Log.Warning("ProcedureMenu is invalid when open MenuForm.");
                 return;
             }
-
-            m_QuitButton.SetActive(Application.platform != RuntimePlatform.IPhonePlayer);
         }
 
 #if UNITY_2017_3_OR_NEWER

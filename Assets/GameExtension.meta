@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Game/Scripts/Hotfix/Game.meta
 guid: 9bee40c502ee2bf40875a8c75845023a
+========
+guid: 5d6df37b0c7576544a0a31f4ecbcef31
+>>>>>>>> master:Assets/GameExtension.meta
 folderAsset: yes
 timeCreated: 1528026154
 licenseType: Pro
